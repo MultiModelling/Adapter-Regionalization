@@ -129,7 +129,6 @@ class Model(ABC):
 
     def status(self, model_run_id: str):
         if model_run_id in self.model_run_dict:
-            # Dummy behaviour: Query status once, to let finish model
             self.model_run_dict[model_run_id].state = ModelState.SUCCEEDED
 
             return ModelRunInfo(

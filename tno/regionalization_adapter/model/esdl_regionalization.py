@@ -4,9 +4,6 @@ import urllib.parse
 from tno.regionalization_adapter.model.model import Model, ModelState
 from tno.regionalization_adapter.types import RegionalizationAdapterConfig, ModelRunInfo
 
-# from esdl import esdl
-# from esdl.esdl_handler import EnergySystemHandler
-
 from tno.shared.log import get_logger
 logger = get_logger(__name__)
 
@@ -42,16 +39,14 @@ class ESDLRegionalization(Model):
                 "year": config.year
             }
 
-        print(data_post)
+        logger.info(f"Request: {str(data_post)}")
         response = requests.post(
             url,
             json=data_post
         )
-        print(str(response.text))
-        logger.info(f"Response: {str(response)}")
+        logger.info(f"Response: {str(response)} {str(response.text)}")
 
         if response.ok:
-            #esdl_str = response.json()['energy_system']
             esdl_str = response.text
             model_run_info = Model.store_result(self, model_run_id=model_run_id, result=esdl_str)
             return model_run_info

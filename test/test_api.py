@@ -22,8 +22,8 @@ else:
 
 # TODO: update this
 post_body = {
-#    "base_path": "",
-#    "output_file_path": "test/Regionalized.esdl",
+    "base_path": "",
+    "output_file_path": "test/Regionalized.esdl",
     "year": 2019,
     "from_scope": "COUNTRY",
     "to_scope": "PROVINCE",
@@ -40,7 +40,7 @@ post_body = {
                 {
                     "filter_by_asset_class": "HeatingDemand",
                     "regionalize_by_parameter": "INHABITANTS"
-                },
+                }
             ],
     "reg_config": {
         "path": "http://localhost:9210/",

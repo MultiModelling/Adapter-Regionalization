@@ -1,0 +1,19 @@
+version: "3.2"
+
+services:
+  mmvib-regionalization-adapter:
+    build: .
+    volumes:
+      - .:/code
+    command: ["gunicorn", "--reload", "tno.regionalization_adapter.main:app", "-t 300", "-w 1", "-b :9220"]
+    ports:
+      - "9220:9220"
+    env_file:
+      - ".env.docker"
+    networks:
+      - mmvib-net
+
+networks:
+  mmvib-net:
+    external:
+      name: mmvib-net

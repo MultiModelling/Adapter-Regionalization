@@ -27,10 +27,10 @@ class RegionalizationAdapterConfig:
     year: int
     from_scope: str
     to_scope: str
-    esdl_b64: str
     rules: List[dict]
     reg_config: RegionalizationConfig
-    output_file_path: Optional[str] = None
+    input_file_path: str = None
+    output_file_path: str = None
     base_path: Optional[str] = None
 
 

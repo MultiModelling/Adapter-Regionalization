@@ -63,8 +63,8 @@ class Model(ABC):
             return path.lstrip('./')
 
     def load_from_minio(self, path, model_run_id):
-
-        path = self.process_path(path, self.model_run_dict[model_run_id].config.base_path)
+        if self.model_run_dict[model_run_id].config.base_path is not None:
+            path = self.process_path(path, self.model_run_dict[model_run_id].config.base_path)
 
         bucket = path.split("/")[0]
         rest_of_path = "/".join(path.split("/")[1:])
@@ -85,8 +85,11 @@ class Model(ABC):
             if self.minio_client:
                 content = BytesIO(bytes(res, 'ascii'))
 
-                path = self.process_path(self.model_run_dict[model_run_id].config.output_file_path,
-                                         self.model_run_dict[model_run_id].config.base_path)
+                if self.model_run_dict[model_run_id].config.base_path is not None:
+                    path = self.process_path(self.model_run_dict[model_run_id].config.output_file_path,
+                                             self.model_run_dict[model_run_id].config.base_path)
+                else:
+                    path = self.model_run_dict[model_run_id].config.output_file_path
 
                 bucket = path.split("/")[0]
                 rest_of_path = "/".join(path.split("/")[1:])

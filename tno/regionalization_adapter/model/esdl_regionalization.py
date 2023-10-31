@@ -1,3 +1,5 @@
+import base64
+
 import requests
 import urllib.parse
 
@@ -31,8 +33,13 @@ class ESDLRegionalization(Model):
         config: RegionalizationAdapterConfig = self.model_run_dict[model_run_id].config
         url = config.reg_config.path + config.reg_config.endpoint
         print(url)
+
+        input_esdl_bytes = self.load_from_minio(config.input_file_path, model_run_id)
+        input_esdl_b64_bytes = base64.b64encode(input_esdl_bytes)
+        input_esdl_b64_string = input_esdl_b64_bytes.decode('utf-8')
+
         data_post = {
-                "esdl_b64": config.esdl_b64,
+                "esdl_b64": input_esdl_b64_string,
                 "rules": config.rules,
                 "to_scope": config.to_scope,
                 "from_scope": config.from_scope,

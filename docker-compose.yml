@@ -23,7 +23,7 @@ services:
     environment:
       - ENV=dev
       - POSTGRES_HOST=regionalization-postgres
-      - POSTGRES_PORT=9222
+      - POSTGRES_PORT=5432
       - POSTGRES_USER=regionalization
       - POSTGRES_PASSWORD=regionalization
       - POSTGRES_DB=regionalization

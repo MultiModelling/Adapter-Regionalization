@@ -13,6 +13,41 @@ services:
     networks:
       - mmvib-net
 
+  regionalization:
+    image: esdlmapeditoressim/regionalization:latest
+    command: [ "python", "tno/regionalization/main.py" ]
+    ports:
+      - "9221:9210"
+    depends_on:
+      - regionalization-postgres
+    environment:
+      - ENV=dev
+      - POSTGRES_HOST=regionalization-postgres
+      - POSTGRES_PORT=9222
+      - POSTGRES_USER=regionalization
+      - POSTGRES_PASSWORD=regionalization
+      - POSTGRES_DB=regionalization
+      - FLASK_APP=backend/tno.regionalization.main
+    networks:
+      - mmvib-net
+
+  regionalization-postgres:
+    image: postgis/postgis:12-master
+    ports:
+      - "9222:5432"
+    volumes:
+      - postgres_storage:/var/lib/postgresql/data
+      - ./postgres/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-regionalization}
+      - POSTGRES_USER=${POSTGRES_DB_USER:-regionalization}
+      - POSTGRES_PASSWORD=${POSTGRES_DB_PASSWD:-regionalization}
+    networks:
+      - mmvib-net
+
+volumes:
+  postgres_storage:
+
 networks:
   mmvib-net:
     external:

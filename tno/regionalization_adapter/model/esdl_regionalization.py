@@ -46,6 +46,15 @@ class ESDLRegionalization(Model):
                 "year": config.year
             }
 
+        # add optional fields
+        if config.calculate_positions:
+            data_post['calculate_positions'] = config.calculate_positions
+            data_post['positions_distance'] = config.positions_distance
+
+        if config.remove_non_regionalized_assets:
+            data_post['remove_non_regionalized_assets'] = config.remove_non_regionalized_assets
+
+
         logger.info(f"Request: {str(data_post)}")
         response = requests.post(
             url,

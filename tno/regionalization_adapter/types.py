@@ -32,6 +32,12 @@ class RegionalizationAdapterConfig:
     input_file_path: str = None
     output_file_path: str = None
     base_path: Optional[str] = None
+    calculate_positions: Optional[bool] = None
+    positions_distance: Optional[float] = None
+    remove_non_regionalized_assets: Optional[bool] = None
+
+
+
 
 
 @dataclass

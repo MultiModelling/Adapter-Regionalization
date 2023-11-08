@@ -47,8 +47,8 @@ def create_app(object_name):
         logger.info("Registering with MM Registry")
 
         # Register adapter to MM Registry
-        registry_data = {"uri": "http://mmvib-etm-kpis-adapter:9202", "used_workers": 0, "name": "ETM_KPIS",
-                         "owner": "localhost", "version": "1.0", "max_workers": 1}
+        registry_data = {"uri": EnvSettings.external_url(), "used_workers": 0, "name": EnvSettings.adapter_id(),
+                         "owner": "TNO", "version": "1.0", "max_workers": 1}
 
         try:
             r = requests.post(EnvSettings.registry_endpoint(), json=registry_data)

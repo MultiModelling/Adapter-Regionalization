@@ -44,6 +44,16 @@ class EnvSettings:
     def registry_endpoint():
         return os.getenv("REGISTRY_ENDPOINT", None)
 
+    @staticmethod
+    def external_url():
+        return os.getenv("EXTERNAL_URL", "http://localhost:" + str(EnvSettings.flask_server_port()))
+
+    @staticmethod
+    def adapter_id():
+        return os.getenv("ADAPTER_ID", "REGIONALIZATION")
+
+
+
 
 class Config(object):
     """Generic config for all environments."""

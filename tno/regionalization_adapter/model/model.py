@@ -66,11 +66,11 @@ class Model(ABC):
         if self.model_run_dict[model_run_id].config.base_path is not None:
             path = self.process_path(path, self.model_run_dict[model_run_id].config.base_path)
 
-        logger.info('minio path', path)
+        logger.info('minio path: ' + path)
         bucket = path.split("/")[0]
         rest_of_path = "/".join(path.split("/")[1:])
-        logger.info('minio bucket', bucket)
-        logger.info('minio rest_of_path', rest_of_path)
+        logger.info('minio bucket: ' + bucket)
+        logger.info('minio rest_of_path: ' + rest_of_path)
 
         response = self.minio_client.get_object(bucket, rest_of_path)
         if response:
